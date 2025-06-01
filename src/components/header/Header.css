@@ -1,0 +1,28 @@
+.tooltip::before {
+    content: "";
+    border: 8px solid;
+    border-color: transparent transparent #000 transparent;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -14px;
+}
+
+.employer::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-left: 1px solid #ccc;
+    height: 26px;
+    left: -20px;
+}
+
+.account_dropdown::before {
+    content: "";
+    border: 8px solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    right: 35px;
+    transform: translateX(-50%);
+    top: -16px;
+}
