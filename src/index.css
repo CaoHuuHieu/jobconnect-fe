@@ -8,10 +8,10 @@
   box-sizing: border-box;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
 @theme {
-  --color-main-color: #003A9B;
+  --color-main-color: #003a9b;
 }

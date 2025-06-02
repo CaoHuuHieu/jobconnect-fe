@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { RecentSearchItem } from "../../types/RecentSearchItem";
 import RecentSearchElement from "../../components/recent_search/RecentSearchElement";
 import JobForYou from "../../components/job_for_you/JobForYou";
-
+import Header from "../../components/header/Header";
 const addValueToLocalStorage = ({ keyword, location }: { keyword: string; location: string }) => {
 
   const recentResearchRaw = localStorage.getItem("recentSearch");
@@ -38,6 +38,7 @@ const Home = () => {
 
     return (
         <>
+            <Header />
             <div>
                 <div className="max-w-3xl mx-auto mt-[24px]">
                     <div className="flex border items-center bg-white rounded-md border-stone-700 shadow-xl/20 px-[6px] py-[10px] space-x-4">
