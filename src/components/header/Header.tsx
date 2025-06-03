@@ -2,12 +2,11 @@ import { BiSolidMessageDetail, BiSolidBell } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
 import AccountDropdown from "./AccountDropdown";
+import { IoIosHelpCircle } from "react-icons/io";
 
 import "./Header.css";
 
 const Header = () => {
-  const isLogin: boolean = false;
-
   const [showAccountDropdown, setShowAccountDropdown] = useState(false);
   const refAccountDropdown = useRef<HTMLDivElement>(null);
   const refAccountIcon = useRef<HTMLDivElement>(null);
@@ -44,37 +43,43 @@ const Header = () => {
       <div className="h-full">
         <div className="flex items-center h-full">
           <div className="pr-[20px] h-full">
-            {isLogin ? (
-              <div className=" h-full flex items-center pt-[16px] text-main-color font-bold border-b-2 border-transparent hover:border-(--color-main-color)">
-                <a className="" href="#">
-                  Sign in
-                </a>
-              </div>
-            ) : (
+          
               <div className="flex h-full">
+                       
                 <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
                   <a
                     className="pt-[24px] pb-[4px] px-[8px] rounded-lg hover:bg-cyan-100"
                     href="#"
                   >
-                    <BiSolidMessageDetail className="text-[24px]" />
+                    <IoIosHelpCircle className="text-[24px]" /> Helps
                   </a>
-                  <div className="absolute hidden bottom-[-46px] left-[-24px] bg-gray-950 text-gray-50 px-[6px] py-[4px] tooltip rounded-sm group-hover:block">
-                    Messages
-                  </div>
+       
                 </div>
+
                 <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
                   <a
                     className="pt-[24px] pb-[4px] px-[8px] rounded-lg hover:bg-cyan-100"
                     href="#"
                   >
-                    <BiSolidBell className="text-[24px]" />
+                    <BiSolidBell className="text-[24px]" /> Notifications
                   </a>
-                  <div className="absolute hidden bottom-[-46px] left-[-36px] bg-gray-950 text-gray-50 px-[6px] py-[4px] tooltip rounded-sm group-hover:block">
-                    Notifications
-                  </div>
+       
                 </div>
-                <div
+
+                <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
+                  <a
+                    className="pt-[24px] pb-[4px] px-[8px] rounded-lg hover:bg-cyan-100"
+                    href="#"
+                  >
+                    <BiSolidMessageDetail className="text-[24px]" />  Messages
+                  </a>
+                </div>
+
+        
+              </div>
+          </div>
+          <div className="pt-[16px] h-full flex items-center mx-[20px] border-b-2 border-transparent hover:border-(--color-main-color) separate relative">
+          <div
                   ref={refAccountIcon}
                   onClick={() => setShowAccountDropdown((prev) => !prev)}
                   className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)"
@@ -96,13 +101,6 @@ const Header = () => {
                     />
                   )}
                 </div>
-              </div>
-            )}
-          </div>
-          <div className="pt-[16px] h-full flex items-center mx-[20px] border-b-2 border-transparent hover:border-(--color-main-color) separate relative">
-            <a className="" href="/recruitment">
-              Employers / Post Job
-            </a>
           </div>
         </div>
       </div>
