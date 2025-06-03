@@ -100,7 +100,7 @@ const Header = () => {
             )}
           </div>
           <div className="pt-[16px] h-full flex items-center mx-[20px] border-b-2 border-transparent hover:border-(--color-main-color) separate relative">
-            <a className="" href="#">
+            <a className="" href="/recruitment">
               Employers / Post Job
             </a>
           </div>
