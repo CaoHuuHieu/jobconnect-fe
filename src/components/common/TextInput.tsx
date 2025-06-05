@@ -1,14 +1,16 @@
 type TextInputProp = {
   label: string;
-  name: string;
-  isRequired: boolean;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string | undefined;
+  description?: string | null,
+  isRequired?: boolean | false;
+  value?: string | undefined;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void | undefined;
 };
 
 export default function TextInput({
   label,
   isRequired,
+  description,
   name,
   value,
   onChange,
@@ -16,10 +18,13 @@ export default function TextInput({
   return (
     <>
       <p>
-        <label>
+        <label className="font-bold">
           {label} <span className="text-red-600">{isRequired ? "*" : ""}</span>
         </label>
+    
       </p>
+     {description && <p className="text-gray-7
+     00">{description}</p>}
       <input
         type="text"
         name={name}
