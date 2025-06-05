@@ -185,9 +185,12 @@ function PostingJobGuide() {
             Let's make your next <br />
             great hire. <em className="italic">Fast.</em>
           </h1>
-          <button className="mt-6 bg-main-color hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded">
+          <a
+            href="/post-job"
+            className="mt-6 bg-main-color hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded"
+          >
             Post a job
-          </button>
+          </a>
         </div>
         <div className="flex justify-center">
           <img

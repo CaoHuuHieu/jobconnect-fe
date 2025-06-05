@@ -13,7 +13,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/recruitment" element={<EmployerPage />} />
-        <Route path="/p/employer-setup/account-details" element={<JobCreate />} />
+        <Route path="/post-job" element={<JobCreate />} />
       </Routes>
     </Router>
   );
