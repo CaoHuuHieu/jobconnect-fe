@@ -32,7 +32,7 @@ const JobType = {
   PART_TIME: "part_time",
   TEMPORARY: "temporary",
   CONTRACT: "contract",
-  INTERSHIP: "internship",
+  INTERNSHIP: "internship",
   COMMISSION: "commission",
   PERMANENT: "permanent",
 };
@@ -50,21 +50,23 @@ type Job = {
   country?: string | "vn";
   title?: string;
   location?: string;
-  partTimeJob?: {
+  jobTypes?: string[] | [];
+  partTimeConfig?: {
     type?: string | null;
     fixed?: number | null;
     from?: number | null;
     to?: number | null;
   } | null;
-  termContractJob?: {
+  contractJobConfig?: {
     key?: string;
     length?: number;
     period?: string;
   } | null;
   payment?: {
     type?: string;
-    from?: string;
-    to?: string;
+    from?: string | null;
+    to?: string | null;
+    amount: string | null;
     rate?: string;
   };
   jobDescription?: string;
@@ -89,7 +91,7 @@ const jobTypes = [
     name: "Contract",
   },
   {
-    key: JobType.INTERSHIP,
+    key: JobType.INTERNSHIP,
     name: "Internship",
   },
   {
@@ -105,24 +107,41 @@ const jobTypes = [
 function JobCreateInformation() {
   const [showPayBy, setShowPayBy] = useState("range");
   const [rate, setRate] = useState("per_hour");
-
   const [jobTypeSelected, setJobTypeSelected] = useState<Set<string>>(
     new Set()
   );
-  const [expectedHourShowby, setExpectedHourShowby] =
-    useState<string>("fixed_hours");
+
+  const [partTimeConfig, setPartTimeConfig] = useState<string>("fixed_hours");
+  const [contractConfig, setContractConfig] = useState<string>("day");
 
   const toggleClick = (key: string) => {
     setJobTypeSelected((prev) => {
       const newSet = new Set(prev);
+
       if (newSet.has(key)) {
         newSet.delete(key);
+        setForm((form) => ({
+          ...form,
+          jobTypes: form.jobTypes?.filter((item) => item !== key),
+          partTimeConfig:
+            key === JobType.PART_TIME ? null : form.partTimeConfig,
+        }));
       } else {
         newSet.add(key);
+        setForm((form) => ({
+          ...form,
+          jobTypes: [...(form.jobTypes || []), key],
+          partTimeConfig:
+            key === JobType.PART_TIME
+              ? { type: JobType.PART_TIME }
+              : form.partTimeConfig,
+        }));
       }
+
       return newSet;
     });
   };
+
   const [form, setForm] = useState<Job>({
     language: "vn",
     country: "vn",
@@ -135,6 +154,19 @@ function JobCreateInformation() {
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
+    }));
+  };
+
+  const handlePartTimeJobConfig = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      partTimeConfig: {
+        ...form.partTimeConfig,
+        [name]: value,
+      },
     }));
   };
 
@@ -281,14 +313,13 @@ function JobCreateInformation() {
                 <div className="w-[200px]">
                   <DropdownList
                     label="Show by"
-                    value={expectedHourShowby}
+                    value={partTimeConfig}
                     onChange={(e) => {
                       setForm((form) => ({
                         ...form,
-                        partTimeJob: null,
-                        termContractJob: null,
+                        partTimeConfig: { type: e.target.value },
                       }));
-                      setExpectedHourShowby(e.target.value);
+                      setPartTimeConfig(e.target.value);
                     }}
                     items={[
                       { key: "fixed_hours", value: "Fixed hours" },
@@ -299,26 +330,26 @@ function JobCreateInformation() {
                   />
                 </div>
                 {(() => {
-                  switch (expectedHourShowby) {
+                  switch (partTimeConfig) {
                     case "range":
                       return (
                         <div className="flex gap-4">
                           <div>
                             <TextInput
-                              name="partTimeJob.from"
+                              name="from"
                               type="number"
-                              value={toString(form?.partTimeJob?.from)}
+                              value={toString(form?.partTimeConfig?.from)}
                               label="From"
-                              onBlur={handleChange}
+                              onChange={handlePartTimeJobConfig}
                             />
                           </div>
                           <div>
                             <TextInput
                               label="To"
                               type="number"
-                              name="partTimeJob.to"
-                              value={toString(form?.partTimeJob?.to)}
-                              onBlur={handleChange}
+                              name="to"
+                              value={toString(form?.partTimeConfig?.to)}
+                              onChange={handlePartTimeJobConfig}
                             />
                           </div>
                         </div>
@@ -328,9 +359,9 @@ function JobCreateInformation() {
                         <div>
                           <TextInput
                             label="No more than"
-                            name="partTimeJob.to"
-                            value={form?.partTimeJob?.to + ""}
-                            onChange={handleChange}
+                            name="to"
+                            value={toString(form?.partTimeConfig?.to)}
+                            onChange={handlePartTimeJobConfig}
                           />
                         </div>
                       );
@@ -339,13 +370,10 @@ function JobCreateInformation() {
                         <div>
                           <TextInput
                             label="No less than"
-                            name="partTimeJob.to"
-                            value={
-                              form?.partTimeJob?.from
-                                ? form?.partTimeJob?.from + ""
-                                : ""
-                            }
-                            onBlur={handleChange}
+                            type="number"
+                            name="from"
+                            value={toString(form?.partTimeConfig?.from)}
+                            onBlur={handlePartTimeJobConfig}
                           />
                         </div>
                       );
@@ -354,16 +382,10 @@ function JobCreateInformation() {
                         <div>
                           <TextInput
                             label="Fixed at"
-                            name="partTimeJob.fixed"
-                            value={
-                              form?.partTimeJob?.fixed
-                                ? form?.partTimeJob?.fixed + ""
-                                : ""
-                            }
-                            onBlur={(e) => {
-                              console.log("hihihj");
-                              handleChange(e);
-                            }}
+                            type="number"
+                            name="fixed"
+                            value={toString(form?.partTimeConfig?.fixed)}
+                            onBlur={handlePartTimeJobConfig}
                           />
                         </div>
                       );
@@ -376,20 +398,34 @@ function JobCreateInformation() {
 
           {(jobTypeSelected.has(JobType.TEMPORARY) ||
             jobTypeSelected.has(JobType.CONTRACT) ||
-            jobTypeSelected.has(JobType.INTERSHIP)) && (
+            jobTypeSelected.has(JobType.INTERNSHIP)) && (
             <div className="my-[20px]">
               <p className="font-bold">How long is the contract?</p>
               <div className="flex gap-4 items-end">
                 <div>
-                  <TextInput label="Length" />
+                  <TextInput
+                    label="Length"
+                    name="length"
+                    type="number"
+                    isRequired={true}
+                    value={toString(form.contractJobConfig?.length)}
+                    onChange={(e) =>
+                      setForm((form) => ({
+                        ...form,
+                        contractJobConfig: {
+                          period: contractConfig,
+                          length: Number(e.target.value),
+                        },
+                      }))
+                    }
+                  />
                 </div>
                 <div className="w-[200px]">
                   <DropdownList
                     label="Period"
-                    value={expectedHourShowby}
+                    value={contractConfig}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setExpectedHourShowby(e.target.value);
+                      setContractConfig(e.target.value);
                     }}
                     items={[
                       { key: "day", value: "day(s)" },
@@ -468,7 +504,6 @@ function JobCreateInformation() {
             theme="snow"
             value={form.jobDescription}
             onChange={(e) => {
-              console.log(e);
               setForm((form) => ({
                 ...form,
                 jobDescription: e,

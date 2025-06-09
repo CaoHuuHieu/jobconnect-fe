@@ -1,4 +1,3 @@
-
 import { BiSolidMessageDetail, BiSolidBell } from "react-icons/bi";
 import { useState, useEffect, useRef, forwardRef } from "react";
 import { IoIosHelpCircle, IoIosSettings } from "react-icons/io";
@@ -7,8 +6,6 @@ import { RiPagesFill } from "react-icons/ri";
 import { GrShare } from "react-icons/gr";
 import { FaUser } from "react-icons/fa";
 import { MdContactPhone } from "react-icons/md";
-
-
 
 type EmployeeDropdownItemType = {
   link: string;
@@ -117,7 +114,7 @@ export default function EmployeeHeader() {
 
   return (
     <>
-      <div className="flex justify-between items-center h-[56px] border-b-1 border-neutral-400">
+      <div className="flex justify-between items-center w-full h-[56px] border-b-1 border-neutral-400">
         <div className="flex items-center h-full">
           <img src="/logo.png" alt="Logo" className="w-40 ml-[20px]" />
         </div>

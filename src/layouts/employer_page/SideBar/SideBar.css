@@ -1,0 +1,8 @@
+.left_bar_child::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  left: -20px;
+}
