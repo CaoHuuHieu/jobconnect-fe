@@ -1,21 +1,29 @@
 import "./App.css";
-import Home from "./layouts/home/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignIn from "./layouts/sign_in/SignIn";
-import EmployerPage from "./layouts/employer_page/EmployerPage";
-import JobCreating from "./layouts/employer_page/JobCreate/JobCreating";
-import EmployerAdminPage from "./layouts/employer_page/SideBar/SideBar";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import { AdminLayout } from "./layouts/admin/AdminLayout";
+import OrganizationList from "./pages/admin/organization/OrganizationList";
+import CreateOrganization from "./pages/admin/organization/OrganizationCreate";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/recruitment" element={<EmployerPage />} />
-        <Route path="/post-job" element={<JobCreating />} />
-        <Route path="/jobs" element={<EmployerAdminPage />} />
+        <Route
+          path="/"
+          element={<Navigate to="/admin/organizations" replace />}
+        />
+
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="organizations" element={<OrganizationList />} />
+          <Route path="organizations/create" element={<CreateOrganization />} />
+        </Route>
+
+        <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>
   );

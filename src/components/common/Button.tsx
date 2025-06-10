@@ -1,6 +1,6 @@
 type ButtonProp = {
   label: string;
-  type?: "button" | "submit" | "reset" ;
+  type?: "button" | "submit" | "reset";
   onClick?: () => void | undefined;
 };
 
@@ -9,7 +9,7 @@ export const Button = ({ label, type, onClick }: ButtonProp) => {
     <button
       type={type}
       onClick={onClick}
-      className=" bg-main-color hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded cursor-pointer"
+      className=" bg-blue-color hover:bg-blue-800 text-white font-semibold px-3 py-2 rounded-xl cursor-pointer"
     >
       {label}
     </button>

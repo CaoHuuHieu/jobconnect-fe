@@ -10,8 +10,10 @@
 
 a {
   text-decoration: none;
+  font-style: bold;
 }
 
 @theme {
   --color-main-color: #003a9b;
+  --color-blue-color: #0156a6;
 }

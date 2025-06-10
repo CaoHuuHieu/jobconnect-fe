@@ -1,0 +1,10 @@
+td {
+  padding: 10px 20px 10px 10px;
+  text-align: center;
+}
+
+th {
+  padding: 10px 20px 10px 10px;
+  background-color: #ccc;
+  text-align: center;
+}
