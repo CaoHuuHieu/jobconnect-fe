@@ -122,95 +122,93 @@ export default function AdminHeader() {
   }, []);
 
   return (
-    <>
-      <div className="flex  items-center w-full h-[56px] border-b-1 border-neutral-400">
-        <div className="flex justify-center items-center h-full min-w-[250px]">
-          <img src="/logo.png" alt="Logo" className="w-40" />
+    <div className="flex  items-center w-full h-[56px]  shadow-md">
+      <div className="flex justify-center items-center h-full min-w-[250px]">
+        <img src="/logo.png" alt="Logo" className="w-40" />
+      </div>
+      <div className="flex justify-between w-full">
+        <div>
+          <Select
+            showSearch
+            className="w-[300px] h-[40px]"
+            placeholder="Select a person"
+            optionFilterProp="label"
+            onChange={onOrganizationChange}
+            onSearch={onOrganizationSearch}
+            options={[
+              {
+                value: "smartdev",
+                label: "SmartDev LLC",
+              },
+              {
+                value: "fpt",
+                label: "FPT",
+              },
+              {
+                value: "codecomplete",
+                label: "CodeComplete",
+              },
+            ]}
+          />
         </div>
-        <div className="flex justify-between w-full">
-          <div>
-            <Select
-              showSearch
-              className="w-[300px] h-[40px]"
-              placeholder="Select a person"
-              optionFilterProp="label"
-              onChange={onOrganizationChange}
-              onSearch={onOrganizationSearch}
-              options={[
-                {
-                  value: "smartdev",
-                  label: "SmartDev LLC",
-                },
-                {
-                  value: "fpt",
-                  label: "FPT",
-                },
-                {
-                  value: "codecomplete",
-                  label: "CodeComplete",
-                },
-              ]}
-            />
-          </div>
-          <div className="h-full">
-            <div className="flex items-center h-full">
-              <div className="pr-[20px] h-full">
-                <div className="flex h-full items-center ">
-                  <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
-                    <a
-                      className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100 flex justify-center gap-1"
-                      href="#"
-                    >
-                      <IoIosHelpCircle className="text-[24px]" />{" "}
-                      <span>Helps</span>
-                    </a>
-                  </div>
+        <div className="h-full">
+          <div className="flex items-center h-full">
+            <div className="pr-[20px] h-full">
+              <div className="flex h-full items-center ">
+                <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
+                  <a
+                    className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100 flex justify-center gap-1"
+                    href="/"
+                  >
+                    <IoIosHelpCircle className="text-[24px]" />{" "}
+                    <span>Helps</span>
+                  </a>
+                </div>
 
-                  <div className="group  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
-                    <a
-                      className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100   flex justify-center gap-1"
-                      href="#"
-                    >
-                      <BiSolidBell className="text-[24px]" />
-                      Notifications
-                    </a>
-                  </div>
+                <div className="group  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
+                  <a
+                    className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100   flex justify-center gap-1"
+                    href="/"
+                  >
+                    <BiSolidBell className="text-[24px]" />
+                    Notifications
+                  </a>
+                </div>
 
-                  <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
-                    <a
-                      className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100   flex justify-center gap-1"
-                      href="#"
-                    >
-                      <BiSolidMessageDetail className="text-[24px]" /> Messages
-                    </a>
-                  </div>
+                <div className="group mx-[10px]  h-full flex items-center text-zinc-900 relative border-b-2 border-transparent hover:border-(--color-main-color)">
+                  <a
+                    className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100   flex justify-center gap-1"
+                    href="/"
+                  >
+                    <BiSolidMessageDetail className="text-[24px]" /> Messages
+                  </a>
                 </div>
               </div>
-              <div className=" h-full flex items-center mx-[20px] separate relative">
-                <div
-                  ref={refEmployerButton}
-                  onClick={() => setShowEmployerDropdown((prev) => !prev)}
-                  className="group mx-[10px]  h-full flex items-center text-zinc-900 relative "
+            </div>
+            <div className=" h-full flex items-center mx-[20px] separate relative">
+              <div
+                ref={refEmployerButton}
+                onClick={() => setShowEmployerDropdown((prev) => !prev)}
+                className="group mx-[10px]  h-full flex items-center text-zinc-900 relative "
+              >
+                <a
+                  className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100"
+                  href="/"
                 >
-                  <a
-                    className="py-[6px] px-[10px] rounded-lg hover:bg-gray-100"
-                    href="#"
-                  >
-                    caohuuhieu12b8@gmail.com
-                  </a>
+                  caohuuhieu12b8@gmail.com
+                </a>
 
-                  {showEmployerDropdown && (
-                    <EmployerDropdown
-                      ref={refEmployerDropdown}
-                      companyName="caohuuhieu12b8@gmail.com"
-                    />
-                  )}
-                </div>
+                {showEmployerDropdown && (
+                  <EmployerDropdown
+                    ref={refEmployerDropdown}
+                    companyName="caohuuhieu12b8@gmail.com"
+                  />
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

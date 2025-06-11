@@ -5,8 +5,6 @@ import { FaPlus } from "react-icons/fa";
 import { PiBagFill } from "react-icons/pi";
 import { FaUserGroup } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import "./LeftSideBar.css";

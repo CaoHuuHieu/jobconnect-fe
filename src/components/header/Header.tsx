@@ -31,7 +31,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="flex justify-between items-center h-[73px] border-b-1 border-neutral-400">
+    <div className="flex justify-between items-center h-[73px] ">
       <div className="flex items-center h-full">
         <img src="/logo.png" alt="Logo" className="w-40 ml-[20px]" />
         <p className="pt-[16px] mx-[30px] flex items-center text-zinc-900 h-full border-b-2 border-transparent hover:border-(--color-main-color)">
