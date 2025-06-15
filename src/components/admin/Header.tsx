@@ -7,6 +7,9 @@ import { GrShare } from "react-icons/gr";
 import { FaUser } from "react-icons/fa";
 import { MdContactPhone } from "react-icons/md";
 import { Select } from "antd";
+import { getOrganizations } from "../../api/organizationApi";
+import type { Organization } from "../../types/organization";
+import HandleClick from "../../utils/clickUtils";
 
 type EmployeeDropdownItemType = {
   link: string;
@@ -90,41 +93,54 @@ const EmployerDropdown = forwardRef<HTMLDivElement, EmployeeDropdownProp>(
   }
 );
 
-const onOrganizationChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
-
-const onOrganizationSearch = (value: string) => {
-  console.log("search:", value);
-};
-
 export default function AdminHeader() {
   const [showEmployerDropdown, setShowEmployerDropdown] = useState(false);
   const refEmployerDropdown = useRef<HTMLDivElement>(null);
   const refEmployerButton = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        refEmployerDropdown.current &&
-        !refEmployerDropdown.current.contains(event.target as Node) &&
-        refEmployerButton.current &&
-        !refEmployerButton.current.contains(event.target as Node)
-      ) {
-        setShowEmployerDropdown(false);
-      }
-    }
+  const [allOrganizations, setAllOrganizations] = useState<Organization[]>([]);
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [organizationSeleted, setOrganizationSelected] =
+    useState<Organization>();
+  const [logo, setLogo] = useState<string>("");
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+  useEffect(() => {
+    const fetchOrganizations = async () => {
+      const res = await getOrganizations(null);
+
+      const organizations = res?.data || [];
+      setOrganizations(organizations);
+      setAllOrganizations(organizations);
+      setOrganizationSelected(organizations[0]);
+      setLogo(organizations[0]?.avatar || "");
     };
+    fetchOrganizations();
   }, []);
+
+  HandleClick(setShowEmployerDropdown, refEmployerButton, refEmployerDropdown);
+
+  const onOrganizationChange = (value: string) => {
+    const organization = allOrganizations.find((org) => org.id === value);
+    setOrganizationSelected(organization);
+    setLogo(organization?.avatar || "");
+  };
+
+  const onOrganizationSearch = (value: string) => {
+    if (!value) {
+      setOrganizations(allOrganizations);
+    } else {
+      setOrganizations(
+        allOrganizations.filter((org) =>
+          org.name.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }
+  };
 
   return (
     <div className="flex  items-center w-full h-[56px]  shadow-md">
       <div className="flex justify-center items-center h-full min-w-[250px]">
-        <img src="/logo.png" alt="Logo" className="w-40" />
+        <img src={logo} alt="Logo" className="max-w-[250px] max-h-[50px]" />
       </div>
       <div className="flex justify-between w-full">
         <div>
@@ -135,20 +151,10 @@ export default function AdminHeader() {
             optionFilterProp="label"
             onChange={onOrganizationChange}
             onSearch={onOrganizationSearch}
-            options={[
-              {
-                value: "smartdev",
-                label: "SmartDev LLC",
-              },
-              {
-                value: "fpt",
-                label: "FPT",
-              },
-              {
-                value: "codecomplete",
-                label: "CodeComplete",
-              },
-            ]}
+            options={organizations.map((org) => ({
+              value: org.id,
+              label: org.name,
+            }))}
           />
         </div>
         <div className="h-full">

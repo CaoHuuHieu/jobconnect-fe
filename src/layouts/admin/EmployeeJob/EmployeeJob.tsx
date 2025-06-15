@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "../../../components/common/Button";
 import { IoIosArrowDown } from "react-icons/io";
-import HandleClick from "../../../utils/ClickUtils";
+import HandleClick from "../../../utils/clickUtils";
 
 import "./EmployeeJob.css";
 const jobStatus = ["Open", "Paused", "Closed"];

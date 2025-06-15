@@ -6,8 +6,8 @@ import {
   Routes,
 } from "react-router-dom";
 import { AdminLayout } from "./layouts/admin/AdminLayout";
-import OrganizationList from "./pages/admin/organization/OrganizationList";
-import CreateOrganization from "./pages/admin/organization/OrganizationCreate";
+import OrganizationList from "./pages/admin/organization/list/OrganizationList";
+import OrganizationForm from "./pages/admin/organization/OrganizationForm";
 
 function App() {
   return (
@@ -20,7 +20,8 @@ function App() {
 
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="organizations" element={<OrganizationList />} />
-          <Route path="organizations/create" element={<CreateOrganization />} />
+          <Route path="organizations/create" element={<OrganizationForm />} />
+          <Route path="organizations/edit/:id" element={<OrganizationForm />} />
         </Route>
 
         <Route path="*" element={<div>404 Not Found</div>} />
