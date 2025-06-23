@@ -49,6 +49,7 @@ export default function OrganizationForm() {
 
   const onFinish = async (values: Organization) => {
     setLoading(true);
+    console.log("Form values submitted:", values);
     try {
       if (id) {
         await updateOrganization(id, values);
@@ -115,16 +116,18 @@ export default function OrganizationForm() {
             <Input />
           </Form.Item>
           <Form.Item<Organization>
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please input email!" }]}
+            label="Organization Code"
+            name="orgCode"
+            rules={[
+              { required: true, message: "Please input organization code!" },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item<Organization>
-            label="Mobile phone"
-            name="phone"
-            rules={[{ required: true, message: "Please input phone!" }]}
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: "Please input email!" }]}
           >
             <Input />
           </Form.Item>
@@ -142,13 +145,19 @@ export default function OrganizationForm() {
           >
             <Input />
           </Form.Item>
-          <Form.Item<Organization> label="Policy Url" name="policyUrl">
+          <Form.Item<Organization> label="Privacy Url" name="privacyUrl">
             <Input />
           </Form.Item>
-          <Form.Item<Organization> label="Term Url" name="termUrl">
+          <Form.Item<Organization> label="Term Url" name="termsUrl">
             <Input />
           </Form.Item>
-          <Form.Item<Organization> name="avatar">
+          <Form.Item<Organization> label="Facebook" name="facebook">
+            <Input />
+          </Form.Item>
+          <Form.Item<Organization> label="LinkedIn" name="linkedIn">
+            <Input />
+          </Form.Item>
+          <Form.Item<Organization> name="orgLogo">
             <Input type="hidden" />
           </Form.Item>
           <Form.Item className="flex justify-center">

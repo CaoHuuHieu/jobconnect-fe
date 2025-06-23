@@ -122,7 +122,7 @@ export default function AdminHeader() {
   const onOrganizationChange = (value: string) => {
     const organization = allOrganizations.find((org) => org.id === value);
     setOrganizationSelected(organization);
-    setLogo(organization?.avatar || "");
+    setLogo(organization?.orgLogo ?? "");
   };
 
   const onOrganizationSearch = (value: string) => {

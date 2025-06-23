@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
-import { getOrganizations } from "../../../../api/organizationApi";
+import type { Admin } from "../types/admin/admin";
+import { getAdmins } from "../api/adminApi";
 
-export function useOrganizationList() {
-  const [organizations, setOrganizations] = useState<any[]>([]);
+export function useAdminList() {
+  const [admins, setAdmins] = useState<Admin[]>([]);
   const [loading, setLoading] = useState(false);
   const [filterBy, setFilterBy] = useState("id");
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
 
-  const fetchOrganizations = async () => {
+  const fetchAdmins = async () => {
     try {
       setLoading(true);
-      console.log("Fetching organizations with filters:", {
-        page,
-        filterBy,
-        filterValue,
-      });
-      const res = await getOrganizations({
+      const res = await getAdmins({
         page,
         size: 7,
         orderBy: "createdAt",
@@ -27,22 +23,21 @@ export function useOrganizationList() {
       });
       console.log(res);
 
-      setOrganizations(res.data || []);
-      setTotal(res.totalElement || 0);
+      setAdmins(res.data ?? []);
+      setTotal(res.totalElement ?? 0);
     } catch (error) {
       console.error("Failed to fetch organizations:", error);
     } finally {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchOrganizations();
-  }, [page, filterBy, filterValue]);
+    fetchAdmins();
+  }, [page, filterValue]);
 
   return {
-    organizations,
-    setOrganizations,
+    admins,
+    setAdmins,
     loading,
     filterBy,
     setFilterBy,

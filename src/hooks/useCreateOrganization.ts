@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import { createOrganization } from "../api/organizationApi";
-import type { Organization } from "../types/Organization";
+import type { Organization } from "../types/organization";
 
 export const useCreateOrganization = () => {
   const [api, contextHolder] = notification.useNotification();

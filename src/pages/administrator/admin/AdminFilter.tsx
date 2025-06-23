@@ -1,4 +1,4 @@
-import { Select, Input } from "antd";
+import { Select, Input, Button } from "antd";
 
 const { Search } = Input;
 
@@ -9,12 +9,12 @@ type Props = {
   setPage: (page: number) => void;
 };
 
-export default function OrganizationFilter({
+export default function AdminFilter({
   filterBy,
   setFilterBy,
   setFilterValue,
   setPage,
-}: Props) {
+}: Readonly<Props>) {
   const handleFilterChange = (value: string) => setFilterBy(value);
   const handleSearch = (value: string) => {
     setPage(0);
@@ -22,7 +22,7 @@ export default function OrganizationFilter({
   };
 
   return (
-    <div className="flex mt-8 gap-7">
+    <div className="flex mt-6 gap-7">
       <div>
         <p className="font-bold">Filter by</p>
         <Select
@@ -31,9 +31,9 @@ export default function OrganizationFilter({
           onChange={handleFilterChange}
           options={[
             { value: "id", label: "Id" },
-            { value: "name", label: "Company Name" },
+            { value: "name", label: "Name" },
             { value: "email", label: "Email" },
-            { value: "phone", label: "Phone" },
+            { value: "employeeId", label: "Employee Id" },
           ]}
         />
       </div>
@@ -42,7 +42,16 @@ export default function OrganizationFilter({
         <Search
           placeholder="Search..."
           allowClear
-          enterButton="Search"
+          enterButton={
+            <Button
+              type="primary"
+              style={{
+                backgroundColor: "var(--color-blue-color)",
+              }}
+            >
+              Search
+            </Button>
+          }
           onSearch={handleSearch}
         />
       </div>

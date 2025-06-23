@@ -7,8 +7,8 @@ export const getOrganizations = async (
     size?: number;
     sort?: string;
     orderBy?: string;
-    q?: string;
-    search?: string;
+    searchValue: string;
+    searchBy?: string;
   } | null
 ) => {
   const res = await axios.get(`${API_BASE_URL}organizations`, { params });

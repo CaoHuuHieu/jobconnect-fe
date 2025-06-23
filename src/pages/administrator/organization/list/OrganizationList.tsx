@@ -1,7 +1,6 @@
-import { Button } from "../../../../components/common/Button";
 import OrganizationFilter from "./OrganizationFilter";
 import OrganizationTable from "./OrganizationTable";
-import { useOrganizationList } from "./useOrganizationList";
+import { useOrganizationList } from "../../../../hooks/useOrganizationList";
 
 import "../Organization.css";
 
@@ -23,7 +22,7 @@ const OrganizationList = () => {
       <div className="flex justify-between w-full border-gray-200">
         <p className="font-bold text-3xl text-blue-color">Organizations</p>
         <a
-          className="p-2 bg-blue-400 text-white font-bold rounded-2xl shadow hover:bg-blue-500"
+          className="p-2 bg-blue-color text-white font-bold rounded-xl shadow hover:bg-blue-500"
           href="organizations/create"
         >
           Create new

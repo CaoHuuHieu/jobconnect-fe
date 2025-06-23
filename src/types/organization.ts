@@ -1,12 +1,14 @@
 export type Organization = {
   id: string;
-  avatar?: string;
   name: string;
+  orgLogo?: string;
+  website?: string;
+  orgCode?: string;
   email?: string;
   address?: string;
-  phone?: string;
-  website?: string;
-  policyUrl?: string;
-  termUrl?: string;
+  termsUrl?: string;
+  privacyUrl?: string;
+  facebook?: string;
+  linkedIn?: string;
   status: number; // 0: inactive, 1: active
 };

@@ -26,7 +26,7 @@ export default function OrganizationTable({
   setPage,
   loading,
   setOrganizations,
-}: Props) {
+}: Readonly<Props>) {
   return (
     <div className="mt-8 w-full">
       <table className="w-full">
@@ -45,23 +45,44 @@ export default function OrganizationTable({
               <td className="flex gap-4">
                 <img
                   className="w-[60px]"
-                  src={org.avatar || "../public/image_001.png"}
+                  src={org.orgLogo || "../public/image_001.png"}
                   alt="avatar"
                 />
                 <div>
-                  <p className="font-bold">{org.name}</p>
-                  <p>{org.address}</p>
+                  <p className="">
+                    Name: <span className="font-normal">{org.name}</span>
+                  </p>
+                  <p>Email: {org.email}</p>
+                  <p>Address: {org.address}</p>
                 </div>
               </td>
               <td>
-                <p className="flex gap-2">
-                  <p>Phone: {org.phone}</p>
-                  <p>Email: {org.email}</p>
-                </p>
                 <p>
                   Website:
                   <a
                     href={org.website}
+                    className="text-blue-500 ml-2 underline "
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {org.website}
+                  </a>
+                </p>
+                <p>
+                  Facebook:
+                  <a
+                    href={org.facebook}
+                    className="text-blue-500 ml-2 underline "
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {org.website}
+                  </a>
+                </p>
+                <p>
+                  LinkedIn:
+                  <a
+                    href={org.linkedIn}
                     className="text-blue-500 ml-2 underline "
                     target="_blank"
                     rel="noreferrer"
@@ -74,7 +95,7 @@ export default function OrganizationTable({
               <td className="text-center">
                 <a
                   href={`/admin/organizations/edit/${org.id}`}
-                  className="cursor-pointer shadow rounded-2xl bg-blue-400 flex items-center gap-2 justify-center text-white hover:bg-blue-500 "
+                  className="cursor-pointer shadow rounded-2xl bg-blue-color flex items-center gap-2 justify-center text-white hover:bg-blue-500 "
                 >
                   Edit
                 </a>
@@ -97,7 +118,11 @@ export default function OrganizationTable({
                     });
                   }}
                 >
-                  <p className="min-w-[50px] cursor-pointer mt-1 shadow rounded-2xl bg-red-400 flex items-center gap-2 justify-center text-white hover:bg-red-500 ">
+                  <p
+                    className={`min-w-[60px] cursor-pointer mt-1 shadow rounded-2xl  flex items-center gap-2 justify-center text-white hover:bg-red-500 
+                    ${org.status !== 0 ? "bg-red-400" : "bg-green-400"}
+                    `}
+                  >
                     {org.status === 0 ? "Active" : "Inactive"}
                   </p>
                 </Popconfirm>
