@@ -10,6 +10,7 @@ import OrganizationList from "./pages/administrator/organization/list/Organizati
 import OrganizationForm from "./pages/administrator/organization/OrganizationForm";
 import AdminList from "./pages/administrator/admin/AdminList";
 import AdminForm from "./pages/administrator/admin/AdminForm";
+import SignIn from "./layouts/sign_in/SignIn";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route path="admins/create" element={<AdminForm />} />
           <Route path="admins/edit/:id" element={<AdminForm />} />
         </Route>
-
+        <Route path="login" element={<SignIn />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>

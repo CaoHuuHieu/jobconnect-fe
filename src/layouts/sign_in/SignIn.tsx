@@ -1,16 +1,7 @@
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 
 import "./SignIn.css";
 import { useState } from "react";
-
-interface GoogleUser {
-  email: string;
-  email_verified: boolean;
-  name: string;
-  picture: string;
-  sub: string;
-}
 
 const SignIn = () => {
   const [currentPage, setCurrenPage] = useState("signIn");
@@ -18,8 +9,7 @@ const SignIn = () => {
 
   const handleLoginSuccess = (response: CredentialResponse) => {
     if (response.credential) {
-      const user = jwtDecode<GoogleUser>(response.credential);
-      console.log("User info:", user);
+      localStorage.setItem("token", response.credential);
     }
   };
 
@@ -69,17 +59,6 @@ const SignIn = () => {
                   onError={() => console.log("Login Failed")}
                 />
               </div>
-
-              {/* <div className="cursor-pointer">
-                    <FacebookLogin
-                    appId="YOUR_FACEBOOK_APP_ID"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    icon="fa-facebook"
-                    textButton="Đăng nhập bằng Facebook"
-                    />
-                </div> */}
 
               <div className="flex items-center justify-between mb-4">
                 <hr className="w-full border-gray-300" />
@@ -131,22 +110,7 @@ const SignIn = () => {
                   useOneTap={false}
                   onSuccess={handleLoginSuccess}
                   onError={() => console.log("Login Failed")}
-                  hint={email}
                 />
-              </div>
-              <p className="text-xs/6 text-gray-600 ">
-                JobConnect will only use your information as described in our{" "}
-                <a href="/">privacy policy</a>. Google may ask for your
-                permission to share with Indeed details like your name, profile
-                picture, public profile information, and email address.
-              </p>
-              <div className="mt-[20px]">
-                <a
-                  href="/"
-                  className="py-[8px] underline text-main-color cursor-pointer text-sm hover:text-blue-500"
-                >
-                  Sign up with login code instead
-                </a>
               </div>
             </div>
           </div>

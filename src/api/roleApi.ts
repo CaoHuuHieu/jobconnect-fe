@@ -1,7 +1,6 @@
-import axios from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axiosInstance from "./axiosInstance";
 
 export const getRoles = async () => {
-  const res = await axios.get(`${API_BASE_URL}roles`);
+  const res = await axiosInstance.get(`roles`);
   return res;
 };

@@ -1,4 +1,7 @@
 import { Select, Input, Button } from "antd";
+import type { Role } from "../../../types/role";
+import { useEffect, useState } from "react";
+import { getRoles } from "../../../api/roleApi";
 
 const { Search } = Input;
 
@@ -21,8 +24,29 @@ export default function AdminFilter({
     setFilterValue(value);
   };
 
+  const [roles, setRoles] = useState<Role[]>([]);
+
+  useEffect(() => {
+    const role = async () => {
+      const response = await getRoles();
+      setRoles(response.data ?? []);
+    };
+    role();
+  }, []);
   return (
     <div className="flex mt-6 gap-7">
+      <div>
+        <p className="font-bold">Role</p>
+        <Select
+          value={filterBy}
+          style={{ width: 180 }}
+          onChange={handleFilterChange}
+          options={roles.map((role) => ({
+            value: role.code,
+            label: role.name,
+          }))}
+        />
+      </div>
       <div>
         <p className="font-bold">Filter by</p>
         <Select

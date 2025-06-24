@@ -1,11 +1,10 @@
-import axios from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axiosInstance from "./axiosInstance";
 
 export const uploadFile = async (file: File): Promise<string> => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await axios.post(`${API_BASE_URL}files/upload`, formData, {
+  const res = await axiosInstance.post(`files/upload`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

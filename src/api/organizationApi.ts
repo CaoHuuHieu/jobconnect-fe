@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axiosInstance from "./axiosInstance";
 
 export const getOrganizations = async (
   params: {
@@ -11,26 +11,26 @@ export const getOrganizations = async (
     searchBy?: string;
   } | null
 ) => {
-  const res = await axios.get(`${API_BASE_URL}organizations`, { params });
+  const res = await axiosInstance.get(`organizations`, { params });
   return res.data;
 };
 
 export const createOrganization = async (data: any) => {
-  const res = await axios.post(`${API_BASE_URL}organizations`, data);
+  const res = await axiosInstance.post(`organizations`, data);
   return res.data;
 };
 
 export const updateOrganization = async (id: string, data: any) => {
-  const res = await axios.put(`${API_BASE_URL}organizations/${id}`, data);
+  const res = await axiosInstance.put(`organizations/${id}`, data);
   return res.data;
 };
 
 export const getOrganizationById = async (id: string) => {
-  const res = await axios.get(`${API_BASE_URL}organizations/${id}`);
+  const res = await axios.get(`organizations/${id}`);
   return res.data;
 };
 
 export const activateOrganization = async (id: string, status: number) => {
-  const res = await axios.put(`${API_BASE_URL}organizations/${id}/${status}`);
+  const res = await axios.put(`organizations/${id}/${status}`);
   return res.data;
 };

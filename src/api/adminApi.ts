@@ -1,5 +1,4 @@
-import axios from "axios";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import axiosInstance from "./axiosInstance";
 
 export const getAdmins = async (
   params: {
@@ -11,26 +10,26 @@ export const getAdmins = async (
     searchBy?: string;
   } | null
 ) => {
-  const res = await axios.get(`${API_BASE_URL}admins`, { params });
+  const res = await axiosInstance.get(`admins`, { params });
   return res.data;
 };
 
 export const createAdmin = async (data: any) => {
-  const res = await axios.post(`${API_BASE_URL}admins`, data);
+  const res = await axiosInstance.post(`admins`, data);
   return res.data;
 };
 
 export const updateAdmin = async (id: string, data: any) => {
-  const res = await axios.put(`${API_BASE_URL}admins/${id}`, data);
+  const res = await axiosInstance.put(`admins/${id}`, data);
   return res.data;
 };
 
 export const getAdminById = async (id: string) => {
-  const res = await axios.get(`${API_BASE_URL}admins/${id}`);
+  const res = await axiosInstance.get(`admins/${id}`);
   return res.data;
 };
 
 export const activateAdmin = async (id: string, status: number) => {
-  const res = await axios.put(`${API_BASE_URL}admins/${id}/${status}`);
+  const res = await axiosInstance.put(`admins/${id}/${status}`);
   return res.data;
 };
